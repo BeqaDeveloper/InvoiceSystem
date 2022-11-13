@@ -15,20 +15,20 @@ public interface IInvoiceService
     /// Create Invoice.
     /// </summary>
     /// <param name="model">Invoice view model.</param>
-    /// <returns></returns>
+    /// <returns>Invoice id.</returns>
     Task<int> CreateInvoiceAsync(InvoiceViewModel model);
 
     /// <summary>
     /// Update Invoice
     /// </summary>
     /// <param name="model">Invoice view model.</param>
-    /// <returns></returns>
-    Task UpdateInvoiceAsync(InvoiceViewModel model);
+    /// <returns>Invoice id.</returns>
+    Task<int> UpdateInvoiceAsync(InvoiceViewModel model);
 
 /// <summary>
 /// Hard delete.
 /// </summary>
 /// <param name="id">Invoice id</param>
-/// <returns></returns>
-    Task DeleteInvoiceAsync(int id);
+/// <returns>Invoice id.</returns>
+    Task<int> DeleteInvoiceAsync(int id);
 }

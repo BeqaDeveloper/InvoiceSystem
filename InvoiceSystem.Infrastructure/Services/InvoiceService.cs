@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Reflection.Metadata.Ecma335;
+using AutoMapper;
 using InvoiceSystem.Application.ViewModels;
 using InvoiceSystem.Domain.Models;
 using InvoiceSystem.Infrastructure.Context;
@@ -41,7 +42,7 @@ public class InvoiceService : BaseService, IInvoiceService
     /// Create invoice.
     /// </summary>
     /// <param name="model">Invoice view model.</param>
-    /// <returns></returns>
+    /// <returns>Invoice id.</returns>
     public async Task<int> CreateInvoiceAsync(InvoiceViewModel model)
     {
         var invoice = _mapper.Map<Invoice>(model);
@@ -55,8 +56,8 @@ public class InvoiceService : BaseService, IInvoiceService
     /// Update invoice.
     /// </summary>
     /// <param name="model">Invoice view model.</param>
-    /// <returns></returns>
-    public async Task UpdateInvoiceAsync(InvoiceViewModel model)
+    /// <returns>Invoice id.</returns>
+    public async Task<int> UpdateInvoiceAsync(InvoiceViewModel model)
     {
         var invoice = await _context.Invoices.FindAsync(model.Id);
         if (invoice != null)
@@ -69,16 +70,18 @@ public class InvoiceService : BaseService, IInvoiceService
         }
 
         await _context.SaveChangesAsync();
+        return invoice!.Id;
     }
 
     /// <summary>
     /// Hard delete of invoice.
     /// </summary>
     /// <param name="id">Invoice id.</param>
-    /// <returns></returns>
-    public async Task DeleteInvoiceAsync(int id)
+    /// <returns>Invoice id.</returns>
+    public async Task<int> DeleteInvoiceAsync(int id)
     {
         var invoice = await _context.Invoices.FindAsync(id);
         await _context.SaveChangesAsync();
+        return invoice!.Id;
     }
 }
